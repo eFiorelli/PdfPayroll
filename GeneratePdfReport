@@ -1,0 +1,186 @@
+package com.mdb.aplicativo.utility;
+
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+
+
+import com.mdb.aplicativo.model.entity.UserPayroll;
+
+public class GeneratePdfReport {
+    
+
+    private static final Logger logger = LoggerFactory.getLogger(GeneratePdfReport.class);
+    
+    public static ByteArrayInputStream payrollReport(List<UserPayroll> payrollReport) {
+        
+        Document document = new Document();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        
+        
+        
+        
+        try {
+            /*
+            String filename = "C:\\Users\\a767953\\Desktop\\Pdf\\atos.jfif";
+            Image image = Image.getInstance(filename);
+            image.setAlignment(Image.ALIGN_LEFT);
+            */
+            PdfPTable table = new PdfPTable(7);
+            table.setWidthPercentage(100);
+            
+            //table.setWidths(new int[] {1, 3, 3});
+            
+            Font headFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD);
+            
+            //ECB* Id cell
+            PdfPCell hcell;
+            
+            
+            hcell = new PdfPCell(new Phrase("Id", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            hcell.setBorder(Rectangle.NO_BORDER);
+            table.setSpacingBefore(50);
+            table.addCell(hcell);
+            
+            //ECB* Name cell
+            hcell = new PdfPCell(new Phrase("Name", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            hcell.setBorder(Rectangle.NO_BORDER);
+            table.setSpacingBefore(50);
+            table.addCell(hcell);
+            
+            //ECB* Surrname1
+            hcell = new PdfPCell(new Phrase("Surrname2", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            hcell.setBorder(Rectangle.NO_BORDER);
+            table.setSpacingBefore(50);
+            table.addCell(hcell);
+            
+            //ECB* Surrname2
+            hcell = new PdfPCell(new Phrase("Surrname2", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            hcell.setBorder(Rectangle.NO_BORDER);
+            table.setSpacingBefore(50);
+            table.addCell(hcell);
+            
+            //ECB* Dni
+            hcell = new PdfPCell(new Phrase("Dni", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            hcell.setBorder(Rectangle.NO_BORDER);
+            table.setSpacingBefore(50);
+            table.addCell(hcell);
+            
+            //ECB* ssnn
+            hcell = new PdfPCell(new Phrase("Ssnn", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            hcell.setBorder(Rectangle.NO_BORDER);
+            table.setSpacingBefore(50);
+            table.addCell(hcell);
+            
+            //ECB* NetSalary
+            hcell = new PdfPCell(new Phrase("NetSalary", headFont));
+            hcell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            hcell.setBorder(Rectangle.NO_BORDER);
+            table.setSpacingBefore(50);
+            table.addCell(hcell);
+            
+            for (UserPayroll userpayroll : payrollReport) {
+                
+                PdfPCell cell;
+                
+                //ECB* Catch the name
+                cell = new PdfPCell(new Phrase(userpayroll.getId().toString()));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setBorder(Rectangle.NO_BORDER);
+                table.setSpacingBefore(50);
+                table.addCell(cell);
+                
+                //ECB* Catch the name
+                cell = new PdfPCell(new Phrase(userpayroll.getName().toString()));
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setBorder(Rectangle.NO_BORDER);
+                table.setSpacingBefore(50);
+                table.addCell(cell);
+                
+                //ECB* Catch the surrname1
+                cell = new PdfPCell(new Phrase(userpayroll.getSurrname1().toString()));
+                cell.setPaddingLeft(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setBorder(Rectangle.NO_BORDER);
+                table.setSpacingBefore(50);
+                table.addCell(cell);
+                
+                // Catch the surrname2
+                cell = new PdfPCell(new Phrase(userpayroll.getSurrname2().toString()));
+                cell.setPaddingRight(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setBorder(Rectangle.NO_BORDER);
+                table.setSpacingBefore(50);
+                table.addCell(cell);
+                
+                // Catch the dni
+                cell = new PdfPCell(new Phrase(userpayroll.getDni().toString()));
+                cell.setPaddingRight(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setBorder(Rectangle.NO_BORDER);
+                table.setSpacingBefore(50);
+                table.addCell(cell);
+                
+                // Catch the ssnn
+                cell = new PdfPCell(new Phrase(userpayroll.getSsnn().toString()));
+                cell.setPaddingRight(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setBorder(Rectangle.NO_BORDER);
+                table.setSpacingBefore(50);
+                table.addCell(cell);
+                
+                // Catch the netSalary
+                cell = new PdfPCell(new Phrase(userpayroll.getNetSalary().toString()));
+                cell.setPaddingRight(5);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setBorder(Rectangle.NO_BORDER);
+                table.setSpacingBefore(50);
+                table.addCell(cell);
+            }
+            
+            
+            PdfWriter.getInstance(document, out);
+            document.open();
+            //document.add(image);
+            document.add(table);
+            
+            
+            document.close();
+            
+        } catch (DocumentException ex) {
+            
+            logger.error("Error ocurred: {0}", ex);
+        }
+        
+        return new ByteArrayInputStream(out.toByteArray());
+        
+    }
+
+}
