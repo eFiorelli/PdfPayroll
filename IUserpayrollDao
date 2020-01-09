@@ -1,0 +1,14 @@
+package com.mdb.aplicativo.model.dao;
+
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+
+import com.mdb.aplicativo.model.entity.UserPayroll;
+
+@Repository
+public interface IUserpayrollDao extends CrudRepository<UserPayroll, Long> {
+
+	
+}
