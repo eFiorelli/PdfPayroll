@@ -1,0 +1,52 @@
+package com.mdb.aplicativo.controller;
+
+
+
+import java.io.ByteArrayInputStream;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mdb.aplicativo.model.dao.IUserpayrollDao;
+import com.mdb.aplicativo.model.entity.UserPayroll;
+import com.mdb.aplicativo.model.service.IUserpayrollService;
+import com.mdb.aplicativo.utility.GeneratePdfReport;
+
+import lombok.var;
+
+
+@RestController
+public class UserPayrollController {
+	
+	@Autowired
+	private IUserpayrollService payrollservice;
+	
+	@RequestMapping(value = "/pdfreport", method = RequestMethod.GET,
+			produces = MediaType.APPLICATION_PDF_VALUE)
+	public ResponseEntity<InputStreamResource> payrollReport(){
+		
+		var payroll = (List<UserPayroll>) payrollservice.findAll();
+		
+		ByteArrayInputStream bis = GeneratePdfReport.payrollReport(payroll);
+		
+		
+		var headers = new HttpHeaders();
+		headers.add("Content-disposition", "inline; filename=payrollreport.pdf");
+		
+		
+		return ResponseEntity
+				.ok()
+				.headers(headers)
+				.contentType(MediaType.APPLICATION_PDF)
+				.body(new InputStreamResource(bis));
+	}
+
+}
