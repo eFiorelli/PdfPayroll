@@ -1,0 +1,14 @@
+package com.mdb.aplicativo.model.service;
+
+
+import java.util.List;
+import com.mdb.aplicativo.model.entity.UserPayroll;
+
+
+public interface IUserpayrollService {
+	
+	
+	List<UserPayroll> findAll();
+	
+
+}
