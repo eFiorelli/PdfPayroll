@@ -1,0 +1,175 @@
+package com.mdb.aplicativo.model.entity;
+
+
+
+import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import lombok.experimental.var;
+
+
+
+@Entity
+@Table(name = "userspayroll")
+public class UserPayroll {
+	
+	public UserPayroll(){
+		
+	}
+	
+	public UserPayroll(String name, String surrname1, String surrname2, String dni, String ssnn, String netSalary) {
+		this.name = name;
+		this.surrname1 = surrname2;
+		this.surrname2 = surrname2;
+		this.dni = dni;
+		this.ssnn = ssnn;
+		this.netSalary = netSalary;
+		
+	}
+	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(nullable = false)
+	@Size(min=1,max=20)
+	private String name;
+	
+	@Column(nullable = false)
+	@Size(min=1,max=20)
+	private String surrname1;
+	
+	@Size(min=1,max=20)
+	private String surrname2;
+	
+	@Column(nullable = true, unique = true, columnDefinition="VARCHAR(9)")
+	@Pattern(regexp = "^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKE]{1}$", message="patron dni no valido")
+	private String dni;
+	
+	@Column(nullable = true, unique = true, columnDefinition="VARCHAR(16)")
+	private String ssnn;
+	
+	@Column(nullable = true)
+	private String netSalary;
+	
+
+	//ECB* G&S
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getSurrname1() {
+		return surrname1;
+	}
+
+	public void setSurrname1(String surrname1) {
+		this.surrname1 = surrname1;
+	}
+
+	public String getSurrname2() {
+		return surrname2;
+	}
+
+	public void setSurrname2(String surrname2) {
+		this.surrname2 = surrname2;
+	}
+
+	public String getDni() {
+		return dni;
+	}
+
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
+
+	public String getSsnn() {
+		return ssnn;
+	}
+
+	public void setSsnn(String ssnn) {
+		this.ssnn = ssnn;
+	}
+
+	public String getNetSalary() {
+		return netSalary;
+	}
+
+	public void setNetSalary(String netSalary) {
+		this.netSalary = netSalary;
+	}
+	/*
+	//ECB* 09/01/2020 Hash
+	@Override
+	public int hashCode() {
+		int hash = 7;
+		hash = 79 * hash + Objects.hashCode(this.id);
+		hash = 79 * hash + Objects.hashCode(this.name);
+		hash = 79 * hash + Objects.hashCode(this.surrname1);
+		hash = 79 * hash + Objects.hashCode(this.surrname2);
+		hash = 79 * hash + Objects.hashCode(this.dni);
+		hash = 79 * hash + Objects.hashCode(this.ssnn);
+		hash = 79 * hash + Objects.hashCode(this.netSalary);
+		return hash;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        
+        final UserPayroll other = (UserPayroll) obj;
+        if (this.ssnn != other.ssnn) {
+        	return false;
+        }
+        if (!Objects.equals(this.dni, other.dni)) {
+        	return false;
+        }
+        return Objects.equals(this.id, other.id);
+	}
+
+	
+*/
+	
+	//private static final long serialVersionUID = 1L;
+	
+}
